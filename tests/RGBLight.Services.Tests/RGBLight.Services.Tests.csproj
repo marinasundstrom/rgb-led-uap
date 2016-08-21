@@ -39,7 +39,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
-    <ProjectReference Include="..\RGBLight.Services\RGBLight.Services.csproj">
+    <ProjectReference Include="..\..\src\RGBLight.Services\RGBLight.Services.csproj">
       <Project>{cd334690-3683-4967-beb1-7de2e645b97d}</Project>
       <Name>RGBLight.Services</Name>
     </ProjectReference>

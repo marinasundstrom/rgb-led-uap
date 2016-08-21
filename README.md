@@ -2,6 +2,8 @@
 
 This project demonstrates how to manipulate the colors of a RGB LED with a Raspberry Pi and Windows 10 IoT.
 
+[Watch video](https://www.youtube.com/watch?v=5dqCgXG2A3Y)
+
 ## Introduction
 
 The app consists of a Universal Windows App (UAP) with a slider-based UI to manipulate the colors Red, Green and Blue. 
