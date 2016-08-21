@@ -1,0 +1,23 @@
+﻿<Page
+    x:Class="RGBLight.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:RGBLight"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" 
+    DataContext="{Binding Main, Source={StaticResource Locator}}">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <StackPanel Orientation="Vertical" Margin="45">
+            <Slider x:Name="RedSlider" IsEnabled="{Binding IsNotRunning}" VerticalAlignment="Top" Header="Red" Maximum="1" StepFrequency="0.1" Margin="0,0,0,50" Value="{Binding Red, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Slider x:Name="GreenSlider" IsEnabled="{Binding IsNotRunning}" VerticalAlignment="Top"  Header="Green" Maximum="1" StepFrequency="0.1" Margin="0,0,0,50" Value="{Binding Green, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Slider x:Name="BlueSlider" IsEnabled="{Binding IsNotRunning}" VerticalAlignment="Top" Header="Blue" Maximum="1" StepFrequency="0.1" Value="{Binding Blue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <StackPanel Height="32" Margin="0,50,0,0" Orientation="Horizontal">
+                <Button Content="{Binding ButtonText}" Command="{Binding RunCommand}"/>
+                <CheckBox IsChecked="{Binding Interpolate, Mode=TwoWay}" IsEnabled="{Binding IsNotRunning}" Content="Interpolate colors" Margin="50,0,0,0"></CheckBox>
+            </StackPanel>
+        </StackPanel>
+
+    </Grid>
+</Page>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RGBLight.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,6 +26,13 @@ namespace RGBLight
         public MainPage()
         {
             this.InitializeComponent();
+
+            Loaded += MainPage_Loaded;
+        }
+
+        private async void MainPage_Loaded(object sender, RoutedEventArgs args)
+        {
+            await ((MainViewModel)DataContext).InitializeAsync();
         }
     }
 }
