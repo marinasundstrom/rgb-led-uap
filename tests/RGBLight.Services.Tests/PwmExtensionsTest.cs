@@ -9,8 +9,8 @@ namespace RGBLight.Services.Tests
 {
     public class PwmExtensionsTest
     {
-        [Fact(DisplayName = "Test")]
-        public void Test()
+        [Fact]
+        public void CalculateValues()
         {
             var result = PwmExtensions.CalculateByteValueFromPercentage(0);
 

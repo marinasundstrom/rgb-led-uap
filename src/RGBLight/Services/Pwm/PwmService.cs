@@ -79,7 +79,7 @@ namespace RGBLight.Services.Pwm
 
         public double SetDesiredFrequency(double desiredFrequency)
         {
-            throw new NotImplementedException();
+            return _controller.SetDesiredFrequency(desiredFrequency);
         }
     }
 

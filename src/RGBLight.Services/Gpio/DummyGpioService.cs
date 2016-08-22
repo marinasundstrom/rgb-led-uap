@@ -14,7 +14,7 @@ namespace RGBLight.Services.Gpio
         {
             get
             {
-                return 4;
+                return _pins.Count;
             }
         }
 

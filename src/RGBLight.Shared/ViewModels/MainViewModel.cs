@@ -8,18 +8,17 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Windows.UI.Core;
 
 namespace RGBLight.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        private const int RED_PIN = 5;
-        private const int GREEN_PIN = 6;
-        private const int BLUE_PIN = 13;
+        internal const int RED_PIN = 5;
+        internal const int GREEN_PIN = 6;
+        internal const int BLUE_PIN = 13;
 
-        private static readonly string ButtonOnText = "Stop animation";
-        private static readonly string ButtonOffText = "Start animation";
+        internal static readonly string ButtonOnText = "Stop animation";
+        internal static readonly string ButtonOffText = "Start animation";
 
         public MainViewModel(IPwmService pwmService)
         {
@@ -73,9 +72,11 @@ namespace RGBLight.ViewModels
 
         ~MainViewModel()
         {
-            RedPin.Dispose();
-            GreenPin.Dispose();
-            BluePin.Dispose();
+            PropertyChanged -= MainViewModel_PropertyChanged;
+
+            RedPin.Stop();
+            GreenPin.Stop();
+            BluePin.Stop();
         }
 
         /// <summary>
@@ -354,7 +355,7 @@ namespace RGBLight.ViewModels
 #if COMMON_ANODE
             return 1 - v;
 #else
-            return r;
+            return v;
 #endif
         }
 

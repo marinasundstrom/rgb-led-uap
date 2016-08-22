@@ -20,8 +20,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RGBLight.Services", "src\RG
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "RGBLight.Shared", "src\RGBLight.Shared\RGBLight.Shared.shproj", "{852912C2-9478-419C-9666-BC1E520029D4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RGBLight.ViewModels.Tests", "tests\RGBLight.ViewModels.Tests\RGBLight.ViewModels.Tests.csproj", "{018F93A5-81BA-4141-AD50-CCDF9D87FE46}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		src\RGBLight.Shared\RGBLight.Shared.projitems*{018f93a5-81ba-4141-ad50-ccdf9d87fe46}*SharedItemsImports = 4
 		src\RGBLight.Shared\RGBLight.Shared.projitems*{852912c2-9478-419c-9666-bc1e520029d4}*SharedItemsImports = 13
 		src\RGBLight.Shared\RGBLight.Shared.projitems*{f04f82e6-3096-4438-b637-9284f356a137}*SharedItemsImports = 4
 	EndGlobalSection
@@ -88,6 +91,22 @@ Global
 		{CD334690-3683-4967-BEB1-7DE2E645B97D}.Release|x64.Build.0 = Release|Any CPU
 		{CD334690-3683-4967-BEB1-7DE2E645B97D}.Release|x86.ActiveCfg = Release|Any CPU
 		{CD334690-3683-4967-BEB1-7DE2E645B97D}.Release|x86.Build.0 = Release|Any CPU
+		{018F93A5-81BA-4141-AD50-CCDF9D87FE46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{018F93A5-81BA-4141-AD50-CCDF9D87FE46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{018F93A5-81BA-4141-AD50-CCDF9D87FE46}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{018F93A5-81BA-4141-AD50-CCDF9D87FE46}.Debug|ARM.Build.0 = Debug|Any CPU
+		{018F93A5-81BA-4141-AD50-CCDF9D87FE46}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{018F93A5-81BA-4141-AD50-CCDF9D87FE46}.Debug|x64.Build.0 = Debug|Any CPU
+		{018F93A5-81BA-4141-AD50-CCDF9D87FE46}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{018F93A5-81BA-4141-AD50-CCDF9D87FE46}.Debug|x86.Build.0 = Debug|Any CPU
+		{018F93A5-81BA-4141-AD50-CCDF9D87FE46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{018F93A5-81BA-4141-AD50-CCDF9D87FE46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{018F93A5-81BA-4141-AD50-CCDF9D87FE46}.Release|ARM.ActiveCfg = Release|Any CPU
+		{018F93A5-81BA-4141-AD50-CCDF9D87FE46}.Release|ARM.Build.0 = Release|Any CPU
+		{018F93A5-81BA-4141-AD50-CCDF9D87FE46}.Release|x64.ActiveCfg = Release|Any CPU
+		{018F93A5-81BA-4141-AD50-CCDF9D87FE46}.Release|x64.Build.0 = Release|Any CPU
+		{018F93A5-81BA-4141-AD50-CCDF9D87FE46}.Release|x86.ActiveCfg = Release|Any CPU
+		{018F93A5-81BA-4141-AD50-CCDF9D87FE46}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -97,5 +116,6 @@ Global
 		{DB364041-2F74-40A8-85FB-28E823AE8A47} = {1BF98FF1-1E2D-45DA-9D96-FF1E18F51E7E}
 		{CD334690-3683-4967-BEB1-7DE2E645B97D} = {CE67FF09-2F1F-475D-B5AD-99A5A713BECF}
 		{852912C2-9478-419C-9666-BC1E520029D4} = {CE67FF09-2F1F-475D-B5AD-99A5A713BECF}
+		{018F93A5-81BA-4141-AD50-CCDF9D87FE46} = {1BF98FF1-1E2D-45DA-9D96-FF1E18F51E7E}
 	EndGlobalSection
 EndGlobal

@@ -26,8 +26,11 @@ namespace RGBLight.ViewModels
             }
             else
             {
+#if !TEST
+
                 ioc.Register<IGpioService, GpioService>();
                 ioc.Register<IPwmService, PwmService>();
+#endif
             }
 
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
