@@ -2,7 +2,7 @@
 
 This project demonstrates how to manipulate the colors of a RGB LED with a Raspberry Pi and Windows 10 IoT.
 
-[Watch video](https://www.youtube.com/watch?v=5dqCgXG2A3Y)
+[Watch video](https://www.youtube.com/watch?v=5dqCgXG2A3Y&index=2&list=PLLBU--06ftFotvv3nwtm0dZxR-xu0i2-u)
 
 ## Introduction
 
