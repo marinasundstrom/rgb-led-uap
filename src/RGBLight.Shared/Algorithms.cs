@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace RGBLight.Helpers
+namespace RGBLight
 {
     public static class Algorithms
     {

@@ -9,8 +9,9 @@
     <Import_RootNamespace>RGBLight</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Helpers\Algorithms.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Helpers\Color.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Algorithms.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Animation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Color.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ViewModelLocator.cs" />
   </ItemGroup>

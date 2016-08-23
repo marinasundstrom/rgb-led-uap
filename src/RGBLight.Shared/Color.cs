@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace RGBLight.Helpers
+namespace RGBLight
 {
     public struct Color
     {
@@ -30,6 +30,25 @@ namespace RGBLight.Helpers
             var b = Algorithms.Interpolate(from.B, to.B, stepNumber, lastStepNumber);
 
             return new Color((byte)r, (byte)g, (byte)b);
+        }
+
+        public static Color FromRGB(byte r, byte g, byte b)
+        {
+            return new Color(r, g, b);
+        }
+
+        public static Color FromPercent(double r, double g, double b)
+        {
+            byte r_ = ByteValueFromPercentOfByte(r);
+            byte g_ = ByteValueFromPercentOfByte(g);
+            byte b_ = ByteValueFromPercentOfByte(b);
+
+            return new Color(r_, g_, b_);
+        }
+
+        private static byte ByteValueFromPercentOfByte(double percent)
+        {
+            return (byte)((255 / 100) * percent);
         }
     }
 }

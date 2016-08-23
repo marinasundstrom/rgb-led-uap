@@ -1,6 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using RGBLight.Helpers;
 using RGBLight.Services.Pwm;
 using System;
 using System.Collections.Generic;
@@ -217,7 +216,7 @@ namespace RGBLight.ViewModels
                 int seconds = 0;
                 int step = 0;
 
-                Color from = Color.Red, to = Color.Green, resultColor;
+                Color resultColor;
 
                 while (true)
                 {
@@ -228,40 +227,9 @@ namespace RGBLight.ViewModels
                         seconds = 0;
                     }
 
-                    if (seconds < 10)
-                    {
-                        step = seconds;
+                    resultColor = Animation.InterpolateColors(seconds);
 
-                        if (seconds == 0)
-                        {
-                            from = Color.Red;
-                            to = Color.Green;
-                        }
-                    }
-                    else if (seconds < 20)
-                    {
-                        step = seconds - 10;
-
-                        if (seconds == 10)
-                        {
-                            from = Color.Green;
-                            to = Color.Blue;
-                        }
-                    }
-                    else if (seconds < 30)
-                    {
-                        step = seconds - 20;
-
-                        if (seconds == 20)
-                        {
-                            from = Color.Blue;
-                            to = Color.Red;
-                        }
-                    }
-
-                    resultColor = Color.Interpolate(from, to, step, 10);
-
-                    SetColorBytes(resultColor.R, resultColor.G, resultColor.B);
+                    SetColor(resultColor);
 
                     await Task.Delay(1000);
 
@@ -274,21 +242,23 @@ namespace RGBLight.ViewModels
                 {
                     if (ct.IsCancellationRequested) return;
 
-                    SetColor(1, 0, 0);
+                    SetColor(Color.Red);
                     await Task.Delay(1000);
 
                     if (ct.IsCancellationRequested) return;
 
-                    SetColor(0, 1, 0);
+                    SetColor(Color.Green);
                     await Task.Delay(1000);
 
                     if (ct.IsCancellationRequested) return;
 
-                    SetColor(0, 0, 1);
+                    SetColor(Color.Blue);
                     await Task.Delay(1000);
                 }
             }
         }
+
+  
 
         public bool IsRunning
         {
@@ -372,6 +342,11 @@ namespace RGBLight.ViewModels
             var g_ = ((double)1 / 255) * g;
             var b_ = ((double)1 / 255) * b;
             SetColor(r_, g_, b_);
+        }
+
+        private void SetColor(Color color)
+        {
+            SetColorBytes(color.R, color.G, color.B);
         }
     }
 }
