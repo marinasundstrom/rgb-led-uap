@@ -13,7 +13,7 @@ namespace RGBLight
         {
             if (seconds < 0 || seconds > 30)
             {
-                throw new ArgumentOutOfRangeException(nameof(seconds), "Argument \"seconds\" must not be less than 0 or greater than 30.");
+                throw new ArgumentOutOfRangeException(nameof(seconds), "Must not be less than 0 or greater than 30.");
             }
 
             Color resultColor;
