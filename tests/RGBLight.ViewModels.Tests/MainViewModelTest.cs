@@ -94,7 +94,6 @@ namespace RGBLight.ViewModels.Tests
 
             Assert.Equal(viewModel.Red, viewModel.RedPin.GetActiveDutyCyclePercentage());
 
-
             viewModel.Red = 1;
 
             Assert.Equal(viewModel.Red, viewModel.RedPin.GetActiveDutyCyclePercentage());
