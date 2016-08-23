@@ -35,9 +35,9 @@ For starters, to make PWM work on RPi, you have to do some additional setup on y
 By default the color pins, as defined in ```MainViewModel.cs```, are:
 
 ```
-    private const int RED_PIN = 5;
-    private const int GREEN_PIN = 6;
-    private const int BLUE_PIN = 13;
+    internal const int RED_PIN = 5;
+    internal const int GREEN_PIN = 6;
+    internal const int BLUE_PIN = 13;
 ```
 
 
