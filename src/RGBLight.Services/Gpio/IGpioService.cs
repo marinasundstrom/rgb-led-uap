@@ -8,12 +8,12 @@ namespace RGBLight.Services.Gpio
 {
     public interface IGpioService
     {
-        IPin OpenPin(int pinNumber);
+        IGPin OpenPin(int pinNumber);
 
         int PinCount { get; }
     }
 
-    public interface IPin : IDisposable
+    public interface IGPin : IDisposable
     {
         PinMode Mode { get; }
         int PinNumber { get; }

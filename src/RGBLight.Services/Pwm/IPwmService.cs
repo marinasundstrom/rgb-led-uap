@@ -10,7 +10,7 @@ namespace RGBLight.Services.Pwm
     {
         Task InitializeAsync();
 
-        IPin OpenPin(int pinNumber);
+        IPwmPin OpenPin(int pinNumber);
 
         int PinCount { get; }
 
@@ -23,7 +23,7 @@ namespace RGBLight.Services.Pwm
         double ActualFrequency { get; }
     }
 
-    public interface IPin : IDisposable
+    public interface IPwmPin : IDisposable
     {
         int PinNumber { get; }
 

@@ -13,7 +13,7 @@ namespace RGBLight.Services.Pwm
     {
         private PwmController _controller;
 
-        internal List<Pin> _pins = new List<Pin>();
+        internal List<PwmPin> _pins = new List<PwmPin>();
 
         public PwmService()
         {
@@ -21,13 +21,13 @@ namespace RGBLight.Services.Pwm
 
         }
 
-        public IPin OpenPin(int pinNumber)
+        public IPwmPin OpenPin(int pinNumber)
         {
-            Pin pin = _pins.FirstOrDefault(p => p.PinNumber == pinNumber);
+            PwmPin pin = _pins.FirstOrDefault(p => p.PinNumber == pinNumber);
             if (pin == null)
             {
                 var pin0 = _controller.OpenPin(pinNumber);
-                pin = new Pin(this, pin0, pinNumber);
+                pin = new PwmPin(this, pin0, pinNumber);
                 _pins.Add(pin);
             }
             return pin;
@@ -83,13 +83,13 @@ namespace RGBLight.Services.Pwm
         }
     }
 
-    public class Pin : IPin
+    public class PwmPin : IPwmPin
     {
         private int _number;
-        private PwmPin _pin;
+        private Windows.Devices.Pwm.PwmPin _pin;
         private PwmService _service;
 
-        public Pin(PwmService service, PwmPin pin, int number)
+        public PwmPin(PwmService service, Windows.Devices.Pwm.PwmPin pin, int number)
         {
             _service = service;
             _pin = pin;

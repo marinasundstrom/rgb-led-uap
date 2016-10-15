@@ -1,4 +1,5 @@
-﻿using RGBLight.Services.Pwm;
+﻿using RGBLight.Services.Gpio;
+using RGBLight.Services.Pwm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +14,10 @@ namespace RGBLight.ViewModels.Tests
         [Fact]
         public async Task InitializeViewModel()
         {
+            var gpioService = new DummyGpioService();
             var pwmService = new DummyPwmService();
 
-            MainViewModel viewModel = new MainViewModel(pwmService);
+            MainViewModel viewModel = new MainViewModel(gpioService, pwmService);
 
             await viewModel.InitializeAsync();
 
@@ -27,9 +29,10 @@ namespace RGBLight.ViewModels.Tests
         [Fact]
         public async Task Animate()
         {
+            var gpioService = new DummyGpioService();
             var pwmService = new DummyPwmService();
 
-            MainViewModel viewModel = new MainViewModel(pwmService);
+            MainViewModel viewModel = new MainViewModel(gpioService, pwmService);
 
             await viewModel.InitializeAsync();
 
@@ -55,9 +58,10 @@ namespace RGBLight.ViewModels.Tests
         [Fact]
         public async Task AnimateWithInterpolateTrue()
         {
+            var gpioService = new DummyGpioService();
             var pwmService = new DummyPwmService();
 
-            MainViewModel viewModel = new MainViewModel(pwmService);
+            MainViewModel viewModel = new MainViewModel(gpioService, pwmService);
 
             await viewModel.InitializeAsync();
 
@@ -84,9 +88,10 @@ namespace RGBLight.ViewModels.Tests
         [Fact]
         public async Task SetColorRed()
         {
+            var gpioService = new DummyGpioService();
             var pwmService = new DummyPwmService();
 
-            MainViewModel viewModel = new MainViewModel(pwmService);
+            MainViewModel viewModel = new MainViewModel(gpioService, pwmService);
 
             await viewModel.InitializeAsync();
 
@@ -106,9 +111,10 @@ namespace RGBLight.ViewModels.Tests
         [Fact]
         public async Task SetColorGreen()
         {
+            var gpioService = new DummyGpioService();
             var pwmService = new DummyPwmService();
 
-            MainViewModel viewModel = new MainViewModel(pwmService);
+            MainViewModel viewModel = new MainViewModel(gpioService, pwmService);
 
             await viewModel.InitializeAsync();
 
@@ -132,9 +138,10 @@ namespace RGBLight.ViewModels.Tests
         [Fact]
         public async Task SetColorBlue()
         {
+            var gpioService = new DummyGpioService();
             var pwmService = new DummyPwmService();
 
-            MainViewModel viewModel = new MainViewModel(pwmService);
+            MainViewModel viewModel = new MainViewModel(gpioService, pwmService);
 
             await viewModel.InitializeAsync();
 

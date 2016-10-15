@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using RGBLight.Services.Gpio;
 using RGBLight.Services.Pwm;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,8 @@ namespace RGBLight.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
+        internal const int TOGGLE_PIN = 1;
+
         internal const int RED_PIN = 5;
         internal const int GREEN_PIN = 6;
         internal const int BLUE_PIN = 13;
@@ -19,8 +22,9 @@ namespace RGBLight.ViewModels
         internal static readonly string ButtonOnText = "Stop animation";
         internal static readonly string ButtonOffText = "Start animation";
 
-        public MainViewModel(IPwmService pwmService)
+        public MainViewModel(IGpioService gpioService, IPwmService pwmService)
         {
+            this.GpioService = gpioService;
             this.PwmService = pwmService;
 
             red = 0;
@@ -30,10 +34,16 @@ namespace RGBLight.ViewModels
             IsRunning = false;
         }
 
+        public IGpioService GpioService { get; private set; }
+
         public IPwmService PwmService { get; private set; }
 
         public async Task InitializeAsync()
         {
+            TogglePin = GpioService.OpenPin(TOGGLE_PIN);
+            TogglePin.DebounceTimeout = TimeSpan.FromMilliseconds(50);
+            TogglePin.ValueChanged += TogglePin_ValueChanged;
+
             await PwmService.InitializeAsync();
 
             RedPin = PwmService.OpenPin(RED_PIN);
@@ -49,6 +59,14 @@ namespace RGBLight.ViewModels
             BluePin.SetActiveDutyCyclePercentage(blue);
 
             PropertyChanged += MainViewModel_PropertyChanged;
+        }
+
+        private void TogglePin_ValueChanged(Object sender, GPinEventArgs e)
+        {
+            if (e.Edge == GpioPinEdge.FallingEdge)
+            {
+                RunCommand.Execute(null);
+            }
         }
 
         private void MainViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -147,9 +165,10 @@ namespace RGBLight.ViewModels
             }
         }
 
-        public IPin RedPin { get; private set; }
-        public IPin GreenPin { get; private set; }
-        public IPin BluePin { get; private set; }
+        public IGPin TogglePin { get; private set; }
+        public IPwmPin RedPin { get; private set; }
+        public IPwmPin GreenPin { get; private set; }
+        public IPwmPin BluePin { get; private set; }
 
         private RelayCommand _runCommand;
         private CancellationTokenSource cts;
@@ -214,7 +233,6 @@ namespace RGBLight.ViewModels
             if (Interpolate)
             {
                 int seconds = 0;
-                int step = 0;
 
                 Color resultColor;
 
@@ -258,7 +276,7 @@ namespace RGBLight.ViewModels
             }
         }
 
-  
+
 
         public bool IsRunning
         {

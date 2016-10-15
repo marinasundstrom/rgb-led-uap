@@ -11,7 +11,7 @@ namespace RGBLight.Services.Gpio
     {
         private readonly GpioController _controller;
 
-        internal List<Pin> _pins = new List<Pin>();
+        internal List<GPin> _pins = new List<GPin>();
 
         public int PinCount
         {
@@ -26,27 +26,27 @@ namespace RGBLight.Services.Gpio
             _controller = GpioController.GetDefault();
         }
 
-        public IPin OpenPin(int pinNumber)
+        public IGPin OpenPin(int pinNumber)
         {
-            Pin pin = _pins.FirstOrDefault(p => p.PinNumber == pinNumber);
+            GPin pin = _pins.FirstOrDefault(p => p.PinNumber == pinNumber);
             if (pin == null)
             {
                 var pin0 = _controller.OpenPin(pinNumber);
-                pin = new Pin(this, pin0);
+                pin = new GPin(this, pin0);
                 _pins.Add(pin);
             }
             return pin;
         }
     }
 
-    public class Pin : IPin
+    public class GPin : IGPin
     {
         private readonly GpioPin _pin;
         private readonly GpioService _service;
 
         public event EventHandler<GPinEventArgs> ValueChanged;
 
-        public Pin(GpioService service, GpioPin pin)
+        public GPin(GpioService service, GpioPin pin)
         {
             _service = service;
             _pin = pin;
