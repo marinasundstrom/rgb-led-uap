@@ -13,12 +13,14 @@ namespace RGBLight.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        internal const int TOGGLE_PIN = 1;
+        // Pins
+        internal const int TOGGLE_PIN = 24;
 
         internal const int RED_PIN = 5;
         internal const int GREEN_PIN = 6;
         internal const int BLUE_PIN = 13;
-
+    
+        // Animation button texts
         internal static readonly string ButtonOnText = "Stop animation";
         internal static readonly string ButtonOffText = "Start animation";
 
@@ -40,10 +42,30 @@ namespace RGBLight.ViewModels
 
         public async Task InitializeAsync()
         {
+            await InitializeGpio();
+
+            await InitializePwm();
+
+            PropertyChanged += MainViewModel_PropertyChanged;
+        }
+
+        private async Task InitializeGpio()
+        {
+            await GpioService.InitializeAsync();
+
             TogglePin = GpioService.OpenPin(TOGGLE_PIN);
+
+            if (TogglePin.IsDriveModeSupported(PinMode.InputPullUp))
+                TogglePin.SetMode(PinMode.InputPullUp);
+            else
+                TogglePin.SetMode(PinMode.Input);
+
             TogglePin.DebounceTimeout = TimeSpan.FromMilliseconds(50);
             TogglePin.ValueChanged += TogglePin_ValueChanged;
+        }
 
+        private async Task InitializePwm()
+        {
             await PwmService.InitializeAsync();
 
             RedPin = PwmService.OpenPin(RED_PIN);
@@ -57,15 +79,17 @@ namespace RGBLight.ViewModels
             RedPin.SetActiveDutyCyclePercentage(red);
             GreenPin.SetActiveDutyCyclePercentage(green);
             BluePin.SetActiveDutyCyclePercentage(blue);
-
-            PropertyChanged += MainViewModel_PropertyChanged;
         }
 
         private void TogglePin_ValueChanged(Object sender, GPinEventArgs e)
         {
             if (e.Edge == GpioPinEdge.FallingEdge)
             {
-                RunCommand.Execute(null);
+                var v = TogglePin.Read() == PinValue.Low;
+                if (v)
+                {
+                    RunCommand.Execute(null);
+                }
             }
         }
 

@@ -8,7 +8,7 @@ namespace RGBLight.Services.Pwm
 {
     public class DummyPwmService : IPwmService
     {
-        internal List<IPin> _pins = new List<IPin>();
+        internal List<IPwmPin> _pins = new List<IPwmPin>();
         private double _desiredFrequency;
 
         public DummyPwmService()
@@ -46,9 +46,9 @@ namespace RGBLight.Services.Pwm
             
         }
 
-        public IPin OpenPin(int pinNumber)
+        public IPwmPin OpenPin(int pinNumber)
         {
-            IPin pin = _pins.FirstOrDefault(p => p.PinNumber == pinNumber);
+            IPwmPin pin = _pins.FirstOrDefault(p => p.PinNumber == pinNumber);
             if (pin == null)
             {
                 pin = new DummyPin(this, pinNumber);
@@ -65,7 +65,7 @@ namespace RGBLight.Services.Pwm
         }
     }
 
-    public class DummyPin : IPin
+    public class DummyPin : IPwmPin
     {
         private double _activeDutyCyclePercentage;
         private DummyPwmService _service;

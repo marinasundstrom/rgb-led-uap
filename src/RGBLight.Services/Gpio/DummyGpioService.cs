@@ -8,7 +8,12 @@ namespace RGBLight.Services.Gpio
 {
     public sealed class DummyGpioService : IGpioService
     {
-        internal List<IPin> _pins = new List<IPin>();
+        internal List<IGPin> _pins = new List<IGPin>();
+
+        public async Task InitializeAsync()
+        {
+
+        }
 
         public int PinCount
         {
@@ -18,9 +23,9 @@ namespace RGBLight.Services.Gpio
             }
         }
 
-        public IPin OpenPin(int pinNumber)
+        public IGPin OpenPin(int pinNumber)
         {
-            IPin pin = _pins.FirstOrDefault(p => p.PinNumber == pinNumber);
+            IGPin pin = _pins.FirstOrDefault(p => p.PinNumber == pinNumber);
             if (pin == null)
             {
                 pin = new DummyPin(this, pinNumber);
@@ -30,7 +35,7 @@ namespace RGBLight.Services.Gpio
         }
     }
 
-    public class DummyPin : IPin
+    public class DummyPin : IGPin
     {
         private PinMode _mode;
         private DummyGpioService _service;
@@ -86,6 +91,11 @@ namespace RGBLight.Services.Gpio
         {
             _value = value;
             ValueChanged?.Invoke(this, new GPinEventArgs(GpioPinEdge.FallingEdge));
+        }
+
+        public bool IsDriveModeSupported(PinMode pinMode)
+        {
+            return false;
         }
     }
 }

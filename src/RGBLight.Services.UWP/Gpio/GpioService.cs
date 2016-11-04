@@ -1,15 +1,17 @@
-﻿using System;
+﻿using Microsoft.IoT.Lightning.Providers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Devices;
 using Windows.Devices.Gpio;
 
 namespace RGBLight.Services.Gpio
 {
     public sealed class GpioService : IGpioService
     {
-        private readonly GpioController _controller;
+        private GpioController _controller;
 
         internal List<GPin> _pins = new List<GPin>();
 
@@ -23,7 +25,20 @@ namespace RGBLight.Services.Gpio
 
         public GpioService()
         {
-            _controller = GpioController.GetDefault();
+
+        }
+
+        public async Task InitializeAsync()
+        {
+            if (_controller != null) throw new InvalidOperationException("Service has already been initialize.");
+
+            if (!Lightning.IsLightningEnabled) throw new NotSupportedException("Lightning is not supported by this device.");
+
+            LowLevelDevicesController.DefaultProvider = LightningProvider.GetAggregateProvider();
+
+            var x =  await GpioController.GetControllersAsync(LightningGpioProvider.GetGpioProvider());
+
+            _controller = (await GpioController.GetControllersAsync(LightningGpioProvider.GetGpioProvider()))[0];
         }
 
         public IGPin OpenPin(int pinNumber)
@@ -128,6 +143,12 @@ namespace RGBLight.Services.Gpio
 
         public void SetMode(PinMode mode)
         {
+            GpioPinDriveMode newMode = GetGpioPinDriveMode(mode);
+            _pin.SetDriveMode(newMode);
+        }
+
+        private static GpioPinDriveMode GetGpioPinDriveMode(PinMode mode)
+        {
             GpioPinDriveMode newMode = GpioPinDriveMode.Output;
             switch (mode)
             {
@@ -145,7 +166,8 @@ namespace RGBLight.Services.Gpio
                     newMode = GpioPinDriveMode.InputPullDown;
                     break;
             }
-            _pin.SetDriveMode(newMode);
+
+            return newMode;
         }
 
         public void Dispose()
@@ -153,6 +175,12 @@ namespace RGBLight.Services.Gpio
             //_pin.Dispose();
             _service._pins.Remove(this);
             ValueChanged = null;
+        }
+
+        public bool IsDriveModeSupported(PinMode pinMode)
+        {
+            var driveMode = GetGpioPinDriveMode(pinMode);
+            return this._pin.IsDriveModeSupported(driveMode);
         }
     }
 }

@@ -23,6 +23,7 @@ namespace RGBLight.ViewModels
             if (ViewModelBase.IsInDesignModeStatic)
             {
                 ioc.Register<IGpioService, DummyGpioService>();
+                ioc.Register<IPwmService, DummyPwmService>();
             }
             else
             {

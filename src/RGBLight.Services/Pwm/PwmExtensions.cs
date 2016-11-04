@@ -17,13 +17,13 @@ namespace RGBLight.Services.Pwm
             byteRatio = (double)1 / Byte.MaxValue;
         }
 
-        public static byte GetActiveDutyCycleByte(this IPin pin)
+        public static byte GetActiveDutyCycleByte(this IPwmPin pin)
         {
             var dutyCyclePercentage = pin.GetActiveDutyCyclePercentage();
             return CalculateByteValueFromPercentage(dutyCyclePercentage);
         }
 
-        public static void SetActiveDutyCycleByte(this IPin pin, byte dutyCycle)
+        public static void SetActiveDutyCycleByte(this IPwmPin pin, byte dutyCycle)
         {
             var value = CalculatePercentageFromByteValue(dutyCycle);
             pin.SetActiveDutyCyclePercentage(value);

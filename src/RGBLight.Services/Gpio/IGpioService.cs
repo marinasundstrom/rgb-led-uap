@@ -8,6 +8,8 @@ namespace RGBLight.Services.Gpio
 {
     public interface IGpioService
     {
+        Task InitializeAsync();
+
         IGPin OpenPin(int pinNumber);
 
         int PinCount { get; }
@@ -23,6 +25,8 @@ namespace RGBLight.Services.Gpio
         void Write(PinValue value);
 
         event EventHandler<GPinEventArgs> ValueChanged;
+
+        bool IsDriveModeSupported(PinMode pinMode);
     }
 
     public enum PinValue
